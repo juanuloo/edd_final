@@ -101,8 +101,10 @@ public class AdjacencyListGraph implements IGraph {
         int i = 0;
         boolean encontrado = false;
         
-        while (encontrado == false || i < MAX_VERTICES) {
-            if (adjacency[fromIdx].get(i).equalsIgnoreCase(from)) encontrado = true;
+        while (encontrado == false && i < adjacency[fromIdx].size()) {
+            if (adjacency[fromIdx].get(i).equalsIgnoreCase(to)) {
+                encontrado = true;
+            }
             i++;
         }
         
@@ -151,8 +153,12 @@ public class AdjacencyListGraph implements IGraph {
             
             for (int i = 0; i < adjacency[currentIdx].size(); i++) {
                 String aux = adjacency[currentIdx].get(i);
-                queue.enqueue(aux);
-                visited[indexOf(aux)] = true;
+                int idx = indexOf(aux);
+                
+                if (!visited[idx]) {
+                    queue.enqueue(aux);
+                    visited[indexOf(aux)] = true;
+                }
             }
         }
         
@@ -200,8 +206,12 @@ public class AdjacencyListGraph implements IGraph {
             
             for (int i = 0; i < adjacency[currentIdx].size(); i++) {
                 String aux = adjacency[currentIdx].get(i);
-                stack.push(aux);
-                visited[indexOf(aux)] = true;
+                int idx = indexOf(aux);
+                
+                if (!visited[idx]) {
+                    stack.push(aux);
+                    visited[indexOf(aux)] = true;
+                }
             }
         }
         
